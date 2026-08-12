@@ -105,3 +105,28 @@ def test_quiet_hours_hold_the_texts_and_let_the_paperwork_through(tmp_path):
     assert take["org"].sent == [], "nobody's phone goes off at half ten"
     assert take["org"].drafts, "the drafting still happened, ready for the morning"
     assert any(row["tool"] == "update_roster" and not row["refused"] for row in take["gate"].seen)
+
+
+def test_a_stopped_run_does_not_print_the_takes_closing_summary(tmp_path, capsys):
+    """The fixed take ends by reporting texts that a stopped run never sent.
+
+    Read over a run the gate held back, that paragraph is the agent misreporting
+    its own work, on camera, in the shot where the boundary is the point.
+    """
+    from datetime import datetime
+
+    run(
+        model=ScriptedModel(SATURDAY_TWO_SHORT, name="test"),
+        scripted=["y", "y", "y"],
+        ledger_path=tmp_path / "ledger.jsonl",
+        plain=True,
+        now=datetime(2026, 8, 12, 22, 30),
+    )
+    out = capsys.readouterr().out
+    assert "Nadia is on it and Priya has been asked" not in out
+    assert "closing summary" in out
+
+
+def test_the_take_still_ends_on_the_models_own_words(take):
+    """And the caveat only applies to a stopped run: an ordinary take keeps it."""
+    assert "Nadia is on it and Priya has been asked" in str(take["result"])

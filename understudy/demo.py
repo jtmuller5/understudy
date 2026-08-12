@@ -146,11 +146,11 @@ def run(
             )
         result = agent(responses)
 
-    _report(gate, org, result, plain)
+    _report(gate, org, result, plain, rehearsal=type(model).__name__ == "ScriptedModel")
     return {"org": org, "gate": gate, "result": result}
 
 
-def _report(gate: Any, org: Any, result: Any, plain: bool) -> None:
+def _report(gate: Any, org: Any, result: Any, plain: bool, rehearsal: bool = False) -> None:
     colour = {"allow": GREEN, "log": YELLOW, "ask": YELLOW, "never": RED}
     print(_c("\nWhat the gate decided\n", BOLD, plain))
     for row in gate.seen:
@@ -178,6 +178,22 @@ def _report(gate: Any, org: Any, result: Any, plain: bool) -> None:
     print(f"  still short by: {shift.short_by}")
     print(f"  drafts kept:    {len(org.drafts)}")
     print()
+    # The closing paragraph is the model's. In a rehearsal it is part of the
+    # fixed take, so it describes the run where the texts went out -- and a run
+    # the gate stopped (quiet hours, the radius, a `n` at the queue) did not
+    # happen that way. Say so rather than read a fixed summary over a different
+    # ending, which on camera looks like the agent lying about its own work.
+    stopped = [row for row in gate.seen if row.get("refused") and row["verdict"] == "ask"]
+    if rehearsal and stopped:
+        print(
+            _c(
+                "The take's closing summary belongs to the run where the texts went out. "
+                f"The gate stopped {len(stopped)} of them here, so it is left off.",
+                DIM,
+                plain,
+            )
+        )
+        return
     print(_c(str(result), "", True))
 
 
@@ -190,6 +206,15 @@ def main(argv: list[str] | None = None) -> int:
         help="Replay a fixed take through the real gate. No model. For practising the recording.",
     )
     parser.add_argument("--answers", default="", help="Comma-separated canned answers, for a rehearsal.")
+    # An edited message is the point of the `e` answer and real wording has
+    # commas in it, so --answers alone cannot script the shot that matters.
+    parser.add_argument(
+        "--answer",
+        action="append",
+        default=[],
+        metavar="TEXT",
+        help="One canned answer, repeatable. Use this when an answer contains a comma.",
+    )
     parser.add_argument("--ledger", default="ledger.jsonl")
     parser.add_argument("--plain", action="store_true", help="No colour, for recording.")
     parser.add_argument("--at", default="", help="Pretend the clock says this, e.g. 22:30, to show quiet hours.")
@@ -208,7 +233,7 @@ def main(argv: list[str] | None = None) -> int:
 
     run(
         local=args.local,
-        scripted=[a for a in args.answers.split(",") if a] or None,
+        scripted=list(args.answer) or [a for a in args.answers.split(",") if a] or None,
         ledger_path=args.ledger,
         plain=args.plain,
         now=now,
