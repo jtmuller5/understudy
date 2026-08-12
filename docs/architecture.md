@@ -47,7 +47,7 @@ The alternatives fail in ways that are easy to miss:
 
 | Verdict | What happens | Strands mechanism |
 |---|---|---|
-| `allow` | The action runs. Reading and drafting cost nothing and are reversed by ignoring them. | none — the hook returns |
+| `allow` | The action runs. Reading and drafting cost nothing and are reversed by ignoring them. | none, the hook returns |
 | `log` | The ledger line is written **first**, with the undo, then the action runs. | `Ledger.record()` before return |
 | `ask` | The run suspends. The question, its arguments and the undo go to the coordinator; the run resumes where it stopped with their answer. | `event.interrupt()` |
 | `never` | The tool is cancelled and the model is told why, in the charter's words, so it plans around the boundary instead of retrying against it. | `event.cancel_tool = reason` |
@@ -76,13 +76,14 @@ action well enough to take it.
 ## The third answer
 
 The decision queue takes four answers, and the third is the one that decides
-whether any of this is used. **Yes, but say it like this** is the commonest real
-reply, and an approve/deny pair cannot express it — so the coordinator denies,
+whether any of this is used. "Yes, but say it like this" is the commonest real
+reply, and an approve/deny pair cannot express it, so the coordinator denies,
 opens the messaging app, and types it themselves. The agent has then saved them
 nothing and cost them a notification.
 
-So an edit is applied to the tool call itself. What goes out is the person's
-wording, and the ledger records the arguments as sent rather than as proposed.
+So the gate applies the edit to the tool call itself. What goes out is the
+person's wording, and the ledger records the arguments as sent rather than as
+proposed.
 
 ## The rest rule
 
@@ -90,7 +91,7 @@ wording, and the ledger records the arguments as sent rather than as proposed.
 days, and reports them separately with the reason rather than dropping them. The
 coordinator can still choose to ask. This is the piece of the job that is
 genuinely memory rather than judgement, and the piece a tired person does worst
-at 11pm — which is the honest case for the agent existing at all.
+at 11pm. That is the honest case for the agent existing at all.
 
 ## The data
 

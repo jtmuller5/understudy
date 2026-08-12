@@ -1,4 +1,4 @@
-# Charter — Riverside Mutual Aid
+# Charter: Riverside Mutual Aid
 
 This file is the agent's boundary. It is written by the volunteer coordinator,
 not by the agent, and the agent cannot edit it.

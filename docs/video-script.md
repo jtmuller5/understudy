@@ -7,7 +7,8 @@ the rest is proof.
 Two of the five judging criteria, Design and Presentation, are settled entirely
 by this recording. It is worth as much as the code.
 
-**Joe records it.** Every command below runs on chonky and has been run there.
+**Joe records it.** Every command below has been run on the machine it is
+recorded from.
 Nothing in the demo reaches a person: the numbers are in the reserved 555 range
 and the domain is example.org.
 
