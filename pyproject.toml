@@ -1,0 +1,25 @@
+[project]
+name = "understudy"
+version = "0.1.0"
+description = "An agent that does a volunteer coordinator's repetitive work and stops at every action a person should own."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "strands-agents",
+    "strands-agents-tools",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+local = ["strands-agents[ollama]"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["understudy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
