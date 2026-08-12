@@ -83,9 +83,16 @@ class Ledger:
                 rows.append(Entry(**json.loads(line)))
         return rows
 
-    def outward_count(self) -> int:
-        """How many outward actions have been taken. Counts the first line only."""
-        return len({e.id for e in self.entries()})
+    def outward_count(self, verdicts: tuple[str, ...] = ("ask",)) -> int:
+        """How many actions have reached a person. Counts each action once.
+
+        A logged action -- a draft kept, hours put on a record -- is a record,
+        not a radius. It reaches nobody, and counting it against the budget
+        means the agent runs out of allowance doing paperwork and stops before
+        the part the coordinator wanted. So the count matches the test the gate
+        already uses for quiet hours: an action that reaches a person.
+        """
+        return len({e.id for e in self.entries() if e.verdict in verdicts})
 
 
 _SECRETISH = ("token", "key", "secret", "password", "passphrase", "authorization")

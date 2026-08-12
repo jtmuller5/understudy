@@ -75,13 +75,28 @@ succeeded, and the action you most want to find is the one that half happened.
 
 ```bash
 pip install -e ".[dev]"
-pytest                    # the gate, with no model and no network
-python -m understudy.demo # the full scenario
+pytest                                # 43 tests, no model and no network
+python -m understudy.demo             # the full scenario, on Bedrock
+python -m understudy.demo --local     # the same, on a local Ollama model
+python -m understudy.demo --rehearse  # a fixed take, for practising the recording
 ```
 
-The demo runs against Amazon Bedrock by default and against a local Ollama model
-with `--local`, because a boundary you can only exercise by paying an API bill
-is one that stops being exercised.
+The demo is Saturday morning at Riverside Mutual Aid: the food bank sort needs
+six people and four have signed up. Understudy reads the sheet, works out who
+has been left alone longest, drafts the messages — and then stops.
+
+Bedrock is the default. `--local` runs the same agent against Ollama, because a
+boundary you can only exercise by paying an API bill is one that stops being
+exercised. `--rehearse` replays a fixed sequence of tool calls through the real
+gate, with no model at all; the choosing is fixed and everything below it is
+genuine. It is a rehearsal harness, and it says so when it starts.
+
+Two flags are worth trying, because both are the point rather than a feature:
+
+- Answer `e` at a decision and reword the message. What goes out is your
+  wording, not the agent's.
+- `--at 22:30` puts the clock in quiet hours. The drafting still happens and
+  nobody's phone goes off.
 
 ## Architecture
 

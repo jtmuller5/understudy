@@ -1,0 +1,138 @@
+{
+  "org": "Riverside Mutual Aid",
+  "coordinator": "the volunteer coordinator",
+  "today": "2026-08-12",
+  "note": "Every person, phone number and address in this file is invented. The 555 range is reserved for fiction and example.org is a reserved domain, so nothing here can reach a real person.",
+  "volunteers": [
+    {
+      "id": "v-dana",
+      "name": "Dana Okonkwo",
+      "phone": "+1-555-0142",
+      "email": "dana@example.org",
+      "available": ["Saturday", "Sunday"],
+      "last_served": "2026-08-08",
+      "hours_this_year": 62.5,
+      "note": "asked in July for a lighter couple of months"
+    },
+    {
+      "id": "v-marcus",
+      "name": "Marcus Bell",
+      "phone": "+1-555-0118",
+      "email": "marcus@example.org",
+      "available": ["Saturday"],
+      "last_served": "2026-07-04",
+      "hours_this_year": 21.0,
+      "note": ""
+    },
+    {
+      "id": "v-priya",
+      "name": "Priya Raman",
+      "phone": "+1-555-0173",
+      "email": "priya@example.org",
+      "available": ["Saturday", "Thursday"],
+      "last_served": "2026-06-20",
+      "hours_this_year": 14.0,
+      "note": "drives, so she can take the van run"
+    },
+    {
+      "id": "v-tomas",
+      "name": "Tomas Vega",
+      "phone": "+1-555-0155",
+      "email": "tomas@example.org",
+      "available": ["Saturday"],
+      "last_served": "2026-08-01",
+      "hours_this_year": 48.0,
+      "note": ""
+    },
+    {
+      "id": "v-ellen",
+      "name": "Ellen Wroe",
+      "phone": "+1-555-0129",
+      "email": "ellen@example.org",
+      "available": ["Saturday", "Friday"],
+      "last_served": "2026-08-01",
+      "hours_this_year": 55.5,
+      "note": ""
+    },
+    {
+      "id": "v-joyce",
+      "name": "Joyce Adeyemi",
+      "phone": "+1-555-0164",
+      "email": "joyce@example.org",
+      "available": ["Saturday"],
+      "last_served": "2026-07-25",
+      "hours_this_year": 33.0,
+      "note": ""
+    },
+    {
+      "id": "v-sam",
+      "name": "Sam Kirby",
+      "phone": "+1-555-0137",
+      "email": "sam@example.org",
+      "available": ["Saturday", "Sunday"],
+      "last_served": "2026-07-18",
+      "hours_this_year": 27.5,
+      "note": ""
+    },
+    {
+      "id": "v-rita",
+      "name": "Rita Lindqvist",
+      "phone": "+1-555-0191",
+      "email": "rita@example.org",
+      "available": ["Saturday"],
+      "last_served": "2026-08-09",
+      "hours_this_year": 71.0,
+      "note": ""
+    },
+    {
+      "id": "v-owen",
+      "name": "Owen Marsh",
+      "phone": "+1-555-0106",
+      "email": "owen@example.org",
+      "available": ["Wednesday", "Thursday"],
+      "last_served": "2026-07-30",
+      "hours_this_year": 18.0,
+      "note": ""
+    },
+    {
+      "id": "v-nadia",
+      "name": "Nadia Farouk",
+      "phone": "+1-555-0188",
+      "email": "nadia@example.org",
+      "available": ["Saturday", "Sunday"],
+      "last_served": null,
+      "hours_this_year": 0.0,
+      "note": "signed up at the summer fair, has not been given a shift yet"
+    }
+  ],
+  "shifts": [
+    {
+      "id": "s-2026-08-15-foodbank",
+      "date": "2026-08-15",
+      "weekday": "Saturday",
+      "name": "Food bank sort and delivery",
+      "start": "09:00",
+      "end": "13:00",
+      "needed": 6,
+      "assigned": ["v-tomas", "v-ellen", "v-joyce", "v-sam"]
+    },
+    {
+      "id": "s-2026-08-16-checkins",
+      "date": "2026-08-16",
+      "weekday": "Sunday",
+      "name": "Doorstep check-ins",
+      "start": "14:00",
+      "end": "16:00",
+      "needed": 2,
+      "assigned": ["v-dana", "v-sam"]
+    }
+  ],
+  "signups": [
+    { "volunteer_id": "v-tomas", "shift_id": "s-2026-08-15-foodbank", "at": "2026-08-04" },
+    { "volunteer_id": "v-ellen", "shift_id": "s-2026-08-15-foodbank", "at": "2026-08-04" },
+    { "volunteer_id": "v-joyce", "shift_id": "s-2026-08-15-foodbank", "at": "2026-08-06" },
+    { "volunteer_id": "v-sam", "shift_id": "s-2026-08-15-foodbank", "at": "2026-08-09" },
+    { "volunteer_id": "v-dana", "shift_id": "s-2026-08-16-checkins", "at": "2026-08-02" },
+    { "volunteer_id": "v-sam", "shift_id": "s-2026-08-16-checkins", "at": "2026-08-09" }
+  ]
+}

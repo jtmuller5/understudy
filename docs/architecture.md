@@ -67,5 +67,32 @@ action well enough to take it.
 | `understudy/charter.py` | Parses `charter.md`. Strictest matching rule wins. |
 | `understudy/gate.py` | `CharterGate`, a `HookProvider` on `BeforeToolCallEvent`. |
 | `understudy/ledger.py` | Append-only JSONL, `O_APPEND`, secret-looking values redacted. |
-| `understudy/tools/` | The coordinator's actual work: roster, messages, calendar. |
-| `tests/test_gate.py` | The safety claim, exercised with no model and no network. |
+| `understudy/tools.py` | The coordinator's actual work: the sheet, the roster, the messages. |
+| `understudy/org.py` | The organisation the tools act on. Invented; see below. |
+| `understudy/coordinator.py` | Model, tools and gate assembled into an agent. |
+| `understudy/demo.py` | The Saturday-two-short scenario and the decision queue. |
+| `tests/` | The safety claim and the rest rule, with no model and no network. |
+
+## The third answer
+
+The decision queue takes four answers, and the third is the one that decides
+whether any of this is used. **Yes, but say it like this** is the commonest real
+reply, and an approve/deny pair cannot express it — so the coordinator denies,
+opens the messaging app, and types it themselves. The agent has then saved them
+nothing and cost them a notification.
+
+So an edit is applied to the tool call itself. What goes out is the person's
+wording, and the ledger records the arguments as sent rather than as proposed.
+
+## The rest rule
+
+`find_available_volunteers` holds back anybody who worked inside the last seven
+days, and reports them separately with the reason rather than dropping them. The
+coordinator can still choose to ask. This is the piece of the job that is
+genuinely memory rather than judgement, and the piece a tired person does worst
+at 11pm — which is the honest case for the agent existing at all.
+
+## The data
+
+Every person, number and address under `examples/` is invented. The 555 range
+and `example.org` are reserved, so nothing in this repo can reach a person.
