@@ -76,7 +76,7 @@ happened.
 
 ```bash
 pip install -e ".[dev]"
-pytest                                # 45 tests, no model and no network
+pytest                                # 56 tests, no model and no network
 python -m understudy.demo             # the full scenario, on Bedrock
 python -m understudy.demo --local     # the same, on a local Ollama model
 python -m understudy.demo --rehearse  # a fixed take, for practising the recording

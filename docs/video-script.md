@@ -17,12 +17,13 @@ and the domain is example.org.
 ```bash
 cd ~/projects/understudy
 git status                       # clean, and on the commit you want to show
-.venv/bin/pytest -q              # 45 passed. Have this on screen for shot 9.
+.venv/bin/pytest -q              # 56 passed. Have this on screen for shot 9.
 rm -f ledger.jsonl               # the demo deletes it too; a stale one is confusing on camera
 ```
 
-Terminal: 100 columns or wider, dark background, font large enough to read on a
-phone. Every demo command below carries `--plain`, which turns the colour off so
+Terminal: 110 columns or wider, dark background, font large enough to read on a
+phone. The widest line in the gate table is 107 characters, and at 100 the two
+`send_sms` rows wrap, so shot 7 shows twelve lines instead of ten. Every demo command below carries `--plain`, which turns the colour off so
 the recording compresses cleanly.
 
 One rehearsal end to end before the take that counts. The whole thing scripts:
@@ -168,7 +169,7 @@ On screen: the "What the gate decided" table, whole.
   log    update_roster              reversible, but I need to see it happened
 ```
 
-That is ten lines and it fits on one screen at 100 columns. Do not scroll it; the
+That is ten lines and it fits on one screen at 110 columns. Do not scroll it; the
 whole point of the shot is that the entire evening's decisions are one short table.
 
 > **Every decision the boundary made, including the reads it waved through. The
@@ -223,7 +224,7 @@ On screen: the mermaid diagram from `docs/architecture.md`, then `pytest` output
 > code came across, and the idea is here because it survived contact with
 > production.**
 >
-> **Forty-five tests, no model and no network. An agent that does the work, and
+> **Fifty-six tests, no model and no network. An agent that does the work, and
 > stops where a person should be the one deciding.**
 
 Last frame: the repo URL and one line, `Built by an AI agent working for Joe
@@ -264,7 +265,7 @@ interesting to build.
 | 6 | Design, Creativity | Four answers, not two, and the edit reaches the tool call. The live typing is the evidence. |
 | 7 | Technical, Impact | Every decision the gate made, on one screen, and then the closing line about Dana. |
 | 8 | Technical, Design | The ledger is written before the act, and the clock is part of the boundary. |
-| 9 | Technical, Presentation | The hook, the interrupt, forty-five tests, and the two disclosures. |
+| 9 | Technical, Presentation | The hook, the interrupt, fifty-six tests, and the two disclosures. |
 
 Read down the middle column before the take. If the video runs long, cut from a
 criterion that has three shots aimed at it, never from one that has a single
