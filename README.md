@@ -107,7 +107,7 @@ Python process.
 ```mermaid
 flowchart TB
     CH["charter.md<br/>plain text, their words"]
-    M["Model<br/>Bedrock by default<br/>--local: Ollama<br/>--rehearse: no model"]
+    M["Model<br/>Bedrock by default<br/>Ollama with #45;#45;local<br/>no model with #45;#45;rehearse"]
     B{{"CharterGate<br/>BeforeToolCallEvent"}}
     Q["Decision queue<br/>y · n · edit"]
     LG[("ledger.jsonl<br/>append-only")]
@@ -116,19 +116,18 @@ flowchart TB
     A{{"CharterGate<br/>AfterToolCallEvent"}}
 
     CH -.->|"parsed at startup"| B
-    M -->|"chooses a tool call"| B
-    B -->|"ask:<br/>interrupt()"| Q
-    Q -->|"y, or an edit that<br/>rewrites the arguments"| B
+    M ---->|"a tool call"| B
+    B -->|"ask: interrupt()"| Q
+    Q -->|"y, or an edit"| B
     B -->|"allow"| T
-    B -->|"log and ask: written first,<br/>with the undo"| LG
-    LG --> T
+    B -->|"written before the call,<br/>with the undo"| LG
     T --> DATA
     DATA --> T
     T --> A
-    A -->|"settles the line: done,<br/>failed or cancelled"| LG
-    A -->|"result"| M
-    B -->|"never · radius spent · quiet hours:<br/>cancel_tool, with the reason"| M
-    Q -->|"n: cancel_tool"| M
+    A -->|"settles the line"| LG
+    A ---->|"result"| M
+    B ---->|"never · spent · quiet:<br/>cancel_tool"| M
+    Q ---->|"n: cancel_tool"| M
 
     classDef human fill:#fdf6d8,stroke:#b8a13a,color:#3a3320
     class CH,Q,LG human
