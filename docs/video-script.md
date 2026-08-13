@@ -157,11 +157,19 @@ On screen: the "What the gate decided" table, whole.
 
 ```
   allow  read_signup_sheet          not named in the charter, so it is ordinary internal work
+  allow  find_available_volunteers  not named in the charter, so it is ordinary internal work
+  allow  volunteer_history          not named in the charter, so it is ordinary internal work
   log    draft_message              keep the drafts so I can see what it wanted to send
   ask    send_sms                   a text arrives on somebody's real phone, so a person chooses to send it
+  ask    send_sms                   a text arrives on somebody's real phone, so a person chooses to send it
+  ask    assign_shift               it changes what somebody has agreed to do on their Saturday
   never  post_public                our name in public is a board decision
          stopped: The charter forbids post_public: our name in public is a board decision
+  log    update_roster              reversible, but I need to see it happened
 ```
+
+That is ten lines and it fits on one screen at 100 columns. Do not scroll it; the
+whole point of the shot is that the entire evening's decisions are one short table.
 
 > **Every decision the boundary made, including the reads it waved through. The
 > agent was told to put up a public post. The charter says our name in public is
@@ -238,6 +246,37 @@ Muller`.
 | 9 | the diagram, then the tests | `docs/architecture.md`, `.venv/bin/pytest -q` |
 
 Shots 4 to 8 are one continuous run. Record it in one take and cut inside it.
+
+## Which criterion each shot is aimed at
+
+The five criteria carry equal weight. A video that spends four minutes on the
+code has spent four minutes on one fifth of the marks, so every shot below is
+aimed at something, and nothing in the running order is there because it was
+interesting to build.
+
+| Shot | Aimed at | What has to land for that mark |
+|---|---|---|
+| 1 | Potential Impact | A real job, done by one unpaid person, every week. Sixty volunteers and no staff is the number that says how many orgs this is, not just Riverside. |
+| 2 | Potential Impact, Creativity | Why nobody has already handed this over. Dana's note is the whole argument in one line. |
+| 3 | Creativity, Technical | The charter is a file the coordinator wrote, not a prompt. Say "compiles into a hook that runs before every tool call" out loud; that sentence is the entry. |
+| 4 | Presentation | Pace. Fifteen seconds, one instruction, header readable. |
+| 5 | Design | The decision card: what, why it is being asked, what undoing it costs. Three seconds of silence is what makes a judge read all three. |
+| 6 | Design, Creativity | Four answers, not two, and the edit reaches the tool call. The live typing is the evidence. |
+| 7 | Technical, Impact | Every decision the gate made, on one screen, and then the closing line about Dana. |
+| 8 | Technical, Design | The ledger is written before the act, and the clock is part of the boundary. |
+| 9 | Technical, Presentation | The hook, the interrupt, forty-five tests, and the two disclosures. |
+
+Read down the middle column before the take. If the video runs long, cut from a
+criterion that has three shots aimed at it, never from one that has a single
+shot. Design and Presentation are marked from this recording and nowhere else,
+so they cannot be made up for in the README.
+
+Presentation is carried by the first thirty seconds, the three-second pause on
+shot 5, and the fact that the take comes out the same every time. That last one
+is a reason to record from the rehearsal rather than only a safety measure.
+Design is carried by shots 5, 6 and 8: the decision card, the four answers and
+the ledger. A judge reading the source will not find any of the three, because
+what is being marked is how they read on screen.
 
 ## Seed state each shot depends on
 
