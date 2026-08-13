@@ -7,7 +7,6 @@ requires-python = ">=3.10"
 license = { file = "LICENSE" }
 dependencies = [
     "strands-agents",
-    "strands-agents-tools",
 ]
 
 [project.optional-dependencies]

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -134,18 +134,12 @@ def reset() -> Org:
     return use(Org.load())
 
 
-def business_days_away(org: Org, iso_date: str) -> int:
-    return (date.fromisoformat(iso_date) - org.today).days
-
-
 __all__ = [
     "Org",
     "Shift",
     "Volunteer",
-    "business_days_away",
     "current",
     "reset",
     "use",
     "SEED",
-    "timedelta",
 ]

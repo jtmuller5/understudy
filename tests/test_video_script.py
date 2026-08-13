@@ -24,8 +24,6 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from understudy.demo import main  # noqa: E402
-
 SCRIPT = (ROOT / "docs" / "video-script.md").read_text()
 SEED = json.loads((ROOT / "examples" / "riverside.json").read_text())
 SHIFT = "s-2026-08-15-foodbank"
@@ -168,7 +166,7 @@ def test_the_quiet_hours_run_sends_nothing(tmp_path):
     assert "closing summary" in output, "shot 8 says this line is deliberate; do not cut it"
 
 
-def test_the_seed_state_each_shot_depends_on(tmp_path):
+def test_the_seed_state_each_shot_depends_on():
     """Shots 1 and 2 point a camera at this file. The bullets under 'Seed state'."""
     shift = next(s for s in SEED["shifts"] if s["id"] == SHIFT)
     assert (shift["needed"], len(shift["assigned"])) == (6, 4), "short by two"

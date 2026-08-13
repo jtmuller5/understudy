@@ -136,7 +136,7 @@ def test_hours_land_on_the_record(org):
     assert org.volunteer("Tomas").hours_this_year == before + 4
 
 
-def test_assigning_somebody_closes_the_gap(org):
+def test_assigning_somebody_closes_the_gap():
     call(tools.assign_shift, volunteer="Nadia", shift_id=SHIFT)
     assert call(tools.read_signup_sheet)["short_by"] == 1
 
@@ -278,11 +278,11 @@ QUESTION = {
     "answers,approved",
     [(["y"], True), ([""], True), (["n", ""], False), (["q"], False)],
 )
-def test_the_queue_reads_the_four_answers(answers, approved, capsys):
+def test_the_queue_reads_the_four_answers(answers, approved):
     reply = DecisionQueue(scripted=answers, plain=True).ask(QUESTION, 1)
     assert reply["approved"] is approved
 
 
-def test_editing_the_wording_returns_it_as_an_edit(capsys):
+def test_editing_the_wording_returns_it_as_an_edit():
     reply = DecisionQueue(scripted=["e", "Hi Marcus, any chance?"], plain=True).ask(QUESTION, 1)
     assert reply == {"approved": True, "by": "coordinator", "edit": {"body": "Hi Marcus, any chance?"}}

@@ -4,3 +4,6 @@ __pycache__/
 *ledger.jsonl
 .pytest_cache/
 .ruff_cache/
+
+# Working notes the build loop keeps beside the checkout. Not part of the entry.
+notes/
