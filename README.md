@@ -72,15 +72,43 @@ The second is a ledger. Every action that reached the world is written there
 only what succeeded, and the action you most want to find is the one that half
 happened.
 
+## The part that is not obvious
+
+Most agents that ask permission do it by finishing the turn and presenting a
+plan. Understudy stops in the middle of one.
+
+`BeforeToolCallEvent` fires after the model has chosen an action and before the
+action happens. That is the one moment when the action is fully known and has
+not yet occurred, and it is the same moment for all ten tools here, plus any
+that arrive later over MCP. The charter compiles to a `HookProvider` on that
+event, and each verdict is a line of SDK. `never` sets `event.cancel_tool`, so
+the model is told why in the coordinator's words and plans around the boundary
+instead of retrying against it. `ask` calls `event.interrupt()`, `log` writes
+the ledger line before returning, and `allow` returns.
+
+`event.interrupt()` is the one worth stealing. It suspends the agent mid-turn
+and resumes it in place, which is what lets a person reword a message and have
+the agent send their wording rather than its own. One catch, which nothing in
+the signature warns you about: the callback runs twice for one `ask`, once to
+raise the interrupt and once when the answer comes back, so anything it counts
+has to be keyed by `toolUseId`.
+
 ## Run it
 
 ```bash
+git clone https://github.com/jtmuller5/understudy && cd understudy
+python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]"
+
 pytest                                # 56 tests, no model and no network
+python -m understudy.demo --rehearse  # a fixed take, no model and no account
 python -m understudy.demo             # the full scenario, on Bedrock
 python -m understudy.demo --local     # the same, on a local Ollama model
-python -m understudy.demo --rehearse  # a fixed take, for practising the recording
 ```
+
+`pytest` and `--rehearse` need no account, no key and no network. The other two
+do: Bedrock reads AWS credentials from the environment, and `--local` expects
+Ollama answering on port 11434.
 
 The demo is Saturday morning at Riverside Mutual Aid: the food bank sort needs
 six people and four have signed up. Understudy reads the sheet, works out who
