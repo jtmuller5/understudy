@@ -101,7 +101,52 @@ Two flags are worth trying, because both are the point rather than a feature:
 
 ## Architecture
 
-See [`docs/architecture.md`](docs/architecture.md).
+The three yellow boxes belong to the coordinator. Everything else runs in one
+Python process.
+
+```mermaid
+flowchart TB
+    CH["charter.md<br/>plain text, their words"]
+    M["Model<br/>Bedrock by default<br/>--local: Ollama<br/>--rehearse: no model"]
+    B{{"CharterGate<br/>BeforeToolCallEvent"}}
+    Q["Decision queue<br/>y · n · edit"]
+    LG[("ledger.jsonl<br/>append-only")]
+    T["Tools<br/>sheet · roster · messages · shifts"]
+    DATA[("org.py<br/>who is free, who worked when")]
+    A{{"CharterGate<br/>AfterToolCallEvent"}}
+
+    CH -.->|"parsed at startup"| B
+    M -->|"chooses a tool call"| B
+    B -->|"ask:<br/>interrupt()"| Q
+    Q -->|"y, or an edit that<br/>rewrites the arguments"| B
+    B -->|"allow"| T
+    B -->|"log and ask: written first,<br/>with the undo"| LG
+    LG --> T
+    T --> DATA
+    DATA --> T
+    T --> A
+    A -->|"settles the line: done,<br/>failed or cancelled"| LG
+    A -->|"result"| M
+    B -->|"never · radius spent · quiet hours:<br/>cancel_tool, with the reason"| M
+    Q -->|"n: cancel_tool"| M
+
+    classDef human fill:#fdf6d8,stroke:#b8a13a,color:#3a3320
+    class CH,Q,LG human
+```
+
+There is no server and no database. The charter and the ledger are files, the
+roster is a Python module, and the only thing that leaves the machine is the
+model call. The coordinator does not log in to anything. They answer an
+interrupt.
+
+Two arrows do most of the work. `charter.md` reaches the gate at startup, so
+the boundary is data a person wrote rather than a paragraph the model reads.
+And the arrow out of the decision queue goes back into the gate rather than on
+to the tool, because an `ask` runs the same callback twice: once to raise the
+interrupt, once when the run resumes carrying the answer.
+
+Every verdict, and what happens when a tool declares no undo, is in
+[`docs/architecture.md`](docs/architecture.md).
 
 ## Pre-existing work, disclosed
 

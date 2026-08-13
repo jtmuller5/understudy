@@ -2,30 +2,38 @@
 
 ## The shape
 
+The diagram of what calls what is in the [README](../README.md#architecture),
+where a reader gets to it first. This file is the second look: one gated call
+from end to end, and the reasons behind the design.
+
 ```mermaid
-flowchart TB
-    subgraph human["The coordinator"]
-        CH["charter.md<br/>plain text, their words"]
-        INBOX["Decision queue<br/>one question at a time"]
-        LOG["ledger.jsonl<br/>every action, with its undo"]
-    end
+sequenceDiagram
+    participant M as Model
+    participant G as CharterGate
+    participant C as Coordinator
+    participant L as ledger.jsonl
+    participant T as send_sms
 
-    subgraph agent["Understudy (Strands)"]
-        A["Agent<br/>reads, reasons, drafts"]
-        G{{"CharterGate<br/>BeforeToolCallEvent hook"}}
-        T["Tools<br/>roster · messages · calendar · MCP"]
-    end
-
-    CH -->|compiled at startup| G
-    A -->|"chooses an action"| G
-    G -->|allow| T
-    G -->|"log: write the undo first"| LOG
-    LOG --> T
-    G -->|"ask: interrupt(), run suspends"| INBOX
-    INBOX -->|"resume with the answer"| G
-    G -->|"never: cancel_tool, told why"| A
-    T -->|results| A
+    M->>G: BeforeToolCallEvent(send_sms, to, body)
+    G->>G: charter verdict → ask
+    G->>G: blast radius, quiet hours
+    G->>C: interrupt("charter-gate", the call and its undo)
+    Note over M,T: the run stops here, mid-turn, and holds
+    C-->>G: "yes, but say it like this"
+    G->>G: the same callback runs again, now with the answer
+    G->>G: edits rewrite tool_use["input"]
+    G->>L: line written BEFORE the call, with the undo
+    G->>T: the call proceeds, in the coordinator's wording
+    T-->>G: AfterToolCallEvent(result)
+    G->>L: settle the line: done, failed or cancelled
+    G-->>M: result
 ```
+
+Two things in that sequence are easy to miss and both are load-bearing. The
+callback runs twice for one decision, so anything it appends to has to be keyed
+by `toolUseId` or every `ask` is counted double. And the ledger is written on
+the way in rather than on the way out, then settled afterwards, because a log
+written only on success cannot show you the action that half happened.
 
 ## Why the gate is a hook and not a prompt
 
