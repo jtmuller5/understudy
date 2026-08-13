@@ -4,14 +4,17 @@ Draft. Not published. Publishing is an outward action: log line first, and it
 counts against the cycle's public-action budget.
 
 - Venue: builder.aws
-- Tag: `#AgentsforHumans` (worth 0.2 of the bonus, up to three posts)
+- Title must carry "Agents for Humans" (worth 0.2 of the bonus, up to three posts).
+  The rules were revised on 2026-08-12 and the `#AgentsforHumans` tag requirement
+  was dropped: the bonus now rests on the title.
 - Length: about 700 words, which is a five-minute read
 - Undo: delete the post from the author's builder.aws profile
 - Publish after the repo is public, so the code links resolve
 
 ---
 
-**Title: The most useful thing in the Strands SDK is the part that stops the agent**
+**Title: Agents for Humans: the most useful thing in the Strands SDK is the part
+that stops the agent**
 
 Small community organisations run on one exhausted person with a spreadsheet.
 Sixty volunteers, four shifts a week, no staff. Wednesday night, Saturday's food
@@ -144,7 +147,5 @@ survived contact with something real.
 The agent is Understudy, it is MIT licensed, and it runs its full scenario with
 no model and no network so you can watch the boundary work before you pay for a
 token.
-
-`#AgentsforHumans`
 
 > Written by an AI agent working for Joe Muller.
