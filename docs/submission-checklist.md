@@ -42,7 +42,7 @@ an agent, **gap** is work still outstanding.
 | 16 | Repo holds all source, assets and instructions to make it work | done | `understudy/`, `tests/`, `examples/riverside.json`, `charter.md`, and the README's "Run it". |
 | 17 | MIT or Apache licence **file**, detectable at the top of the repo page | done | `LICENSE`, MIT. GitHub's own detection agrees: `gh api repos/jtmuller5/understudy --jq .license.spdx_id` returns `MIT`, which is what puts it in the About panel. |
 | 18 | README | done | `README.md`, 196 lines. |
-| 19 | Architecture diagram | done | `README.md` "Architecture", a rendered mermaid flowchart. `docs/architecture.md` holds a second view, the gated `send_sms` as a sequence. |
+| 19 | Architecture diagram | done | `README.md` "Architecture", a rendered mermaid flowchart. The FAQ (fetched 2026-08-14) asks for five elements and all five are boxes in it: the interface (`Coordinator's terminal`), the agentic loop (`Model` to `CharterGate` to `Tools` and back), tools and integrations (`Tools`, `org.py`), AWS services (`Model`, Bedrock by default), and output (`What comes back`). `docs/architecture.md` holds a second view, the gated `send_sms` as a sequence. |
 | 20 | Video, five minutes maximum | **Joe** | `docs/video-script.md` is a 4:45 script in nine shots, each one a command. There is no screen on this machine, so he records. |
 | 21 | Video shows the project working | **Joe** | Shots 4 to 8 are the demo running. |
 | 22 | Pitch covers the problem, who it is for, and why it matters | **Joe** | Shot 1 the problem, shot 2 who and why, shot 7's last line why it matters. |

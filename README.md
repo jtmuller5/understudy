@@ -129,11 +129,13 @@ Two flags are worth trying, because both are the point rather than a feature:
 
 ## Architecture
 
-The three yellow boxes belong to the coordinator. Everything else runs in one
-Python process.
+The yellow boxes are the coordinator's: the charter they wrote, the terminal
+they start it from and answer at, the ledger, and the report they read at the
+end. Everything else runs in one Python process.
 
 ```mermaid
 flowchart TB
+    CLI["Coordinator's terminal<br/>python #45;m understudy.demo"]
     CH["charter.md<br/>plain text, their words"]
     M["Model<br/>Bedrock by default<br/>Ollama with #45;#45;local<br/>no model with #45;#45;rehearse"]
     B{{"CharterGate<br/>BeforeToolCallEvent"}}
@@ -142,7 +144,10 @@ flowchart TB
     T["Tools<br/>sheet · roster · messages · shifts"]
     DATA[("org.py<br/>who is free, who worked when")]
     A{{"CharterGate<br/>AfterToolCallEvent"}}
+    OUT["What comes back<br/>every verdict<br/>what went out<br/>the ledger<br/>where Saturday stands"]
 
+    CLI -->|"fill Saturday's shift"| M
+    Q -.->|"asked and answered here"| CLI
     CH -.->|"parsed at startup"| B
     M ---->|"a tool call"| B
     B -->|"ask: interrupt()"| Q
@@ -156,9 +161,12 @@ flowchart TB
     A ---->|"result"| M
     B ---->|"never · spent · quiet:<br/>cancel_tool"| M
     Q ---->|"n: cancel_tool"| M
+    LG --> OUT
+    DATA --> OUT
+    M -.->|"closing summary"| OUT
 
     classDef human fill:#fdf6d8,stroke:#b8a13a,color:#3a3320
-    class CH,Q,LG human
+    class CLI,CH,Q,LG,OUT human
 ```
 
 There is no server and no database. The charter and the ledger are files, the
